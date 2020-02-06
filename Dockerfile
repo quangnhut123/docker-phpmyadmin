@@ -23,8 +23,12 @@ RUN PHPMYADMIN_VERSION=4.9.2 && \
 	rm -rf setup && \
 	rm -rf sql
 
+# admindb | admindb123
+COPY .htpasswd /etc/apache2/.htpasswd
 COPY .htaccess /var/www/html/.htaccess
 COPY config.inc.php /var/www/html/config.inc.php
+
+COPY healthcheck.php /var/www/html/healthcheck.php
 
 # Enable the container to be run by OpenShift with a non-privileged user. For details see
 # https://docs.openshift.com/container-platform/3.7/creating_images/guidelines.html#use-uid
