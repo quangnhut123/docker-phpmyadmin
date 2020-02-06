@@ -32,6 +32,8 @@ COPY config.inc.php /var/www/html/config.inc.php
 RUN chgrp -R 0 /tmp /etc/apache2 /var/run/apache2 /var/www/html && \
 	chmod -R g=u /tmp /etc/apache2 /var/run/apache2 /var/www/html
 
+RUN ln -s /var/www/html /var/www/html/phpmyadmin
+
 COPY docker-entrypoint.sh /home/entrypoint.sh
 
 ENTRYPOINT ["/home/entrypoint.sh"]
