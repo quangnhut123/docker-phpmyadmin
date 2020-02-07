@@ -28,7 +28,8 @@ COPY .htpasswd /etc/apache2/.htpasswd
 COPY .htaccess /var/www/html/.htaccess
 COPY config.inc.php /var/www/html/config.inc.php
 
-COPY healthcheck.php /var/www/html/healthcheck.php
+
+COPY healthcheck /var/www/html/healthcheck
 
 # Enable the container to be run by OpenShift with a non-privileged user. For details see
 # https://docs.openshift.com/container-platform/3.7/creating_images/guidelines.html#use-uid
