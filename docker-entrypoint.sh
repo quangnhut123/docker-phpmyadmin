@@ -15,4 +15,7 @@ test -z $UPLOAD_SIZE || sed -i "s/128M/$UPLOAD_SIZE/g" /var/www/html/.htaccess
 
 # Start Apache as usual
 
+cp /var/www/html/* /var/www/phpmyadmin -R
+cp /var/www/phpmyadmin /var/www/html -R
+
 exec apache2-foreground

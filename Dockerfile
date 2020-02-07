@@ -23,6 +23,8 @@ RUN PHPMYADMIN_VERSION=5.0.1 && \
 	rm -rf setup && \
 	rm -rf sql
 
+# admindb | admindb123
+COPY .htpasswd /etc/apache2/.htpasswd
 COPY config.inc.php /var/www/html/config.inc.php
 COPY healthcheck.php /var/www/html/healthcheck.php
 
@@ -32,10 +34,7 @@ COPY healthcheck.php /var/www/html/healthcheck.php
 RUN chgrp -R 0 /tmp /etc/apache2 /var/run/apache2 /var/www/html && \
 	chmod -R g=u /tmp /etc/apache2 /var/run/apache2 /var/www/html
 
-COPY /var/www/html /var/www/html/phpmyadmin
-COPY .htaccess /var/www/html/phpmyadmin/.htaccess
-# admindb | admindb123
-COPY .htpasswd /etc/apache2/.htpasswd
+COPY .htaccess /var/www/phpmyadmin/.htaccess
 
 COPY docker-entrypoint.sh /home/entrypoint.sh
 
