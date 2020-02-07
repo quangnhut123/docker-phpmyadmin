@@ -23,13 +23,8 @@ RUN PHPMYADMIN_VERSION=5.0.1 && \
 	rm -rf setup && \
 	rm -rf sql
 
-# admindb | admindb123
-COPY .htpasswd /etc/apache2/.htpasswd
-COPY .htaccess /var/www/html/.htaccess
 COPY config.inc.php /var/www/html/config.inc.php
-
-
-COPY healthcheck /var/www/html/healthcheck
+COPY healthcheck.php /var/www/html/healthcheck.php
 
 # Enable the container to be run by OpenShift with a non-privileged user. For details see
 # https://docs.openshift.com/container-platform/3.7/creating_images/guidelines.html#use-uid
@@ -37,7 +32,10 @@ COPY healthcheck /var/www/html/healthcheck
 RUN chgrp -R 0 /tmp /etc/apache2 /var/run/apache2 /var/www/html && \
 	chmod -R g=u /tmp /etc/apache2 /var/run/apache2 /var/www/html
 
-RUN ln -s /var/www/html /var/www/html/phpmyadmin
+COPY /var/www/html /var/www/html/phpmyadmin
+COPY .htaccess /var/www/html/phpmyadmin/.htaccess
+# admindb | admindb123
+COPY .htpasswd /etc/apache2/.htpasswd
 
 COPY docker-entrypoint.sh /home/entrypoint.sh
 
